@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mi-api-config
+  namespace: mi-api
+data:
+  DB_HOST: postgres
+  REDIS_HOST: redis
+  POSTGRES_DB: miapi
+  POSTGRES_USER: miapi
