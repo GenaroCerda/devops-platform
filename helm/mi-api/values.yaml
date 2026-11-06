@@ -1,0 +1,36 @@
+replicaCount: 2
+
+image:
+  repository: mi-api
+  tag: ""                 # si está vacío, usa appVersion del Chart.yaml
+  pullPolicy: IfNotPresent
+
+config:
+  DB_HOST: postgres
+  REDIS_HOST: redis
+  POSTGRES_DB: miapi
+  POSTGRES_USER: miapi
+
+existingSecret: mi-api-secret   # el Secret se crea fuera del chart
+
+service:
+  port: 80
+  targetPort: 8000
+
+ingress:
+  enabled: true
+  className: nginx
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 500m
+    memory: 256Mi
+
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 50
